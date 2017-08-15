@@ -16,8 +16,7 @@ Example
     import networkx as nx
 
     gpm = GenotypePhenotypeMap.from_json("data.json")
-    gpm.add_networkx()
-    G = gpm.Graph
+    G = GenotypePhenotypeGraph(gpm)
 
     nx.draw(G)
 
@@ -41,5 +40,5 @@ Along with all the methods from
         else:
             return 1
 
-
-    gpm.add_evolutionary_model(adaptive)
+    G = GenotypePhenotypeGraph(gpm)
+    G.add_evolutionary_model(adaptive)
