@@ -1,1 +1,1 @@
-from gpmap.graph.base import GenotypePhenotypeGraph
+from .base import GenotypePhenotypeGraph
