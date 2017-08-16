@@ -52,8 +52,9 @@ class GenotypePhenotypeGraph(nx.DiGraph):
         # initialize the DiGraph object
         super(GenotypePhenotypeGraph, self).__init__()
         self.gpm = gpm
-        self.built = False
+        self.built = True
         self.transition_model = None
+        self._build()
 
     def add_gpm_node(self, index, genotype=None, binary=None, phenotype=None, value=None, errors=None, **kwargs):
         """Add node to networkx graph. """
@@ -115,14 +116,11 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             phenotypes = self.gpm.log.phenotypes
         else:
             phenotypes = self.gpm.phenotypes
-        if self.gpm.stdeviations is None:
-            errors = [None for i in range(self.gpm.n)]
-        else:
-            errors = np.array(self.gpm.err.upper)
+        errors = self.gpm.stdeviations
         edges = []
         for i in range(self.gpm.n):
             # If no error is present, store None
-            geno2index = self.gpm.map("genotypes", "indices")
+            geno2index = self.gpm.map("genotypes", "index")
             # Construct nodes to add to the graph
             self.add_gpm_node(
                 int(geno2index[self.gpm.genotypes[i]]),         # genotype index
