@@ -34,13 +34,15 @@ def flattened(G, scale=1, vertical=False):
         offsets[key] = list(np.arange(val) - (val-1)/2.0)
     # Offset positions
     if vertical:
-        for n in graph.nodes():
+        for n in range(len(list(G.nodes()))):
+
             pos = offsets[positions[n][0]].pop(0)
             scaled = scale*pos
             positions[n].insert(0, scaled)
             positions[n][-1] *= -1
     else:
-        for n in graph.nodes():
+        for n in range(len(list(G.nodes()))):
+
             pos = offsets[positions[n][0]].pop(0)
             scaled = scale*pos
             positions[n].append(scaled)

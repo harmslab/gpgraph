@@ -109,45 +109,47 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             self.edge[i][j]["fixation"] = fixation
 
 
-    def _build(self, log_transform=False, include_missing=True, mutation_labels=False):
+    def _build(self, include_missing=True, mutation_labels=False):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
-        # If log transform
-        if log_transform:
-            phenotypes = self.gpm.log.phenotypes
-        else:
-            phenotypes = self.gpm.phenotypes
-        errors = self.gpm.stdeviations
+        
+        # Build a list of edges.
         edges = []
-        for i in range(self.gpm.n):
-            # If no error is present, store None
-            geno2index = self.gpm.map("genotypes", "index")
+        genotypes = self.gpm.complete_genotypes
+        #binary = self.gpm.binary.complete_genotypes
+        mapping = {g:i for i, g in enumerate(genotypes)}
+
+        # Iterate through known genotypes.
+        for i, genotype in enumerate(self.gpm.genotypes):
             # Construct nodes to add to the graph
             self.add_gpm_node(
-                int(geno2index[self.gpm.genotypes[i]]),         # genotype index
-                genotype=str(self.gpm.genotypes[i]),            # genotype
+                mapping[genotype],         # genotype index
+                genotype=str(genotype),            # genotype
                 binary=str(self.gpm.binary.genotypes[i]),       # binary representation
-                phenotype=phenotypes[i],                            # phenotype
-                value=phenotypes[i],                                # same as phenotype
-                errors=errors[i]                                # error in phenotype
+                phenotype=self.gpm.phenotypes[i],                            # phenotype
+                value=self.gpm.phenotypes[i],                                # same as phenotype
+                errors=self.gpm.stdeviations[i]                                # error in phenotype
             )
             # Construct a set of edge labels to add to Graph
-            edges += binary_neighbors(self.gpm.genotypes[i],
+            bunch = binary_neighbors(genotype,
                         self.gpm.mutations,
                         mutation_labels=mutation_labels)
-        # Add missing nodes if true.
+            edges += [(mapping[pair[0]], mapping[pair[1]], pair[2]) for pair in bunch]
+
+        # Iterate through missing nodes if true.
         if include_missing:
-            genotypes = self.gpm.missing_genotypes
-            for i, genotype in enumerate(genotypes):
+            for genotype in self.gpm.missing_genotypes:
                 # Construct nodes to add to the graph
-                index = int(self.gpm.n + i)
+                index = mapping[genotype]
                 self.add_gpm_node(
                     index, # genotype index
                     genotype=str(genotype),  # genotype
                     binary=str(self.gpm.binary.complete_genotypes[index]))
                 # Construct a set of edge labels to add to Graph
-                edges += binary_neighbors(genotype,
+                bunch = binary_neighbors(genotype,
                             self.gpm.mutations,
                             mutation_labels=mutation_labels)
+                edges += [(mapping[pair[0]], mapping[pair[1]], pair[2]) for pair in bunch]
+                
         # Add edges to map
         self.add_gpm_edges(edges)
 
