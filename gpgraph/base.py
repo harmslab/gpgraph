@@ -111,7 +111,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
 
     def _build(self, include_missing=True, mutation_labels=False):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
-        
+
         # Build a list of edges.
         edges = []
         genotypes = self.gpm.complete_genotypes
@@ -124,7 +124,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             self.add_gpm_node(
                 mapping[genotype],         # genotype index
                 genotype=str(genotype),            # genotype
-                binary=str(self.gpm.binary.genotypes[i]),       # binary representation
+                binary=str(self.gpm.binary[i]),       # binary representation
                 phenotype=self.gpm.phenotypes[i],                            # phenotype
                 value=self.gpm.phenotypes[i],                                # same as phenotype
                 errors=self.gpm.stdeviations[i]                                # error in phenotype
@@ -143,13 +143,13 @@ class GenotypePhenotypeGraph(nx.DiGraph):
                 self.add_gpm_node(
                     index, # genotype index
                     genotype=str(genotype),  # genotype
-                    binary=str(self.gpm.binary.complete_genotypes[index]))
+                    binary=str(self.gpm.complete_binary[index]))
                 # Construct a set of edge labels to add to Graph
                 bunch = binary_neighbors(genotype,
                             self.gpm.mutations,
                             mutation_labels=mutation_labels)
                 edges += [(mapping[pair[0]], mapping[pair[1]], pair[2]) for pair in bunch]
-                
+
         # Add edges to map
         self.add_gpm_edges(edges)
 
@@ -171,7 +171,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
         # Get a matrix of fixation probabilities.
         matrix = np.nan_to_num( nx.attr_matrix(self, edge_attr="fixation",rc_order=self.gpm.indices))
         # scale fixation probabilities by the condition probability.
-        matrix = matrix / self.gpm.binary.length #+ 1
+        matrix = matrix / len(self.gpm.binary[0]) #+ 1
         # Calculate the self probabilities (diagonal)
         for i in range(len(matrix)):
             matrix[i,i] = 1 - matrix[i].sum()
