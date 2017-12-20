@@ -23,19 +23,3 @@ G = GenotypePhenotypeGraph(gpm)
 
 nx.draw(G)
 ```
-
-### Add an evolutionary model
-
-```python
-
-def adaptive(fitness1, fitness2):
-    if fitness2 > fitness1:
-        return 0
-    else:
-        return 1
-
-G = GenotypePhenotypeGraph(gpm)
-G.add_evolutionary_model(adaptive)
-```
-
-### Draw
