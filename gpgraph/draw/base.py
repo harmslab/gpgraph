@@ -18,7 +18,7 @@ def checkG(func):
     return wrapper
 
 @checkG
-def labels(G, pos, ax, labels=None, label_type="genotype", **kwargs):
+def labels(G, pos, ax, labels=None, label_type="genotypes", **kwargs):
     """Draw labels"""
     # Get labels from Graph.
     if labels is None:
@@ -40,7 +40,7 @@ def nodes(G, pos, ax, cmap='plasma', color=None, colorbar=False, ellipses=True, 
     """
     # Add color to nodes
     if color is None:
-        color = np.array([float(G.node[n]["phenotype"]) for n in G.nodes()])
+        color = np.array([float(G.node[n]["phenotypes"]) for n in G.nodes()])
     if ellipses:
         ax, nodes = draw_networkx_nodes_ellipses(G, pos, ax=ax, color=color, cmap=cmap, **kwargs)
     else:
