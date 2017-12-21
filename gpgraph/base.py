@@ -36,14 +36,12 @@ def get_neighbors(genotype, mutations):
 
 class GenotypePhenotypeGraph(nx.DiGraph):
     """Construct a NetworkX DiGraph object from a GenotypePhenotypeMap."""
-    def __init__(self, gpm, genotypes='complete'):
-        # initialize the DiGraph object
-        super(GenotypePhenotypeGraph, self).__init__()
-        self.gpm = gpm
-        self._build(genotypes=genotypes)
 
-    def _build(self, genotypes='complete'):
+    def add_gpm(self, gpm, genotypes='complete'):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
+        # Add gpm
+        self.gpm = gpm
+
         # Iterate through known genotypes.
         if genotypes == 'complete':
             data = self.gpm.complete_data
