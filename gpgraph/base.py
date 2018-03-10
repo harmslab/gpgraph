@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-
+from .draw import draw_flattened
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -36,20 +36,15 @@ def get_neighbors(genotype, mutations):
 
 class GenotypePhenotypeGraph(nx.DiGraph):
     """Construct a NetworkX DiGraph object from a GenotypePhenotypeMap."""
+    def __init__(self, gpm=None, *args, **kwargs):
+        super(GenotypePhenotypeGraph, self).__init__(*args, **kwargs)
+        self.add_gpm(gpm)
 
-    def add_gpm(self, gpm, genotypes='complete'):
+    def add_gpm(self, gpm):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
         # Add gpm
         self.gpm = gpm
-
-        # Iterate through known genotypes.
-        if genotypes == 'complete':
-            data = self.gpm.complete_data
-        elif genotypes == 'obs':
-            data = self.gpm.data
-        else:
-            raise Exception("genotypes keyword argument must be "
-                            "`complete` or `obs`.")
+        data = self.gpm.data
 
         # genotypes to index.
         m = dict(zip(data.genotypes, data.index))
@@ -71,3 +66,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
 
         # Add edges to network
         self.add_edges_from(edges)
+
+    def __repr__(self):
+        draw_flattened(self)
+        return super(GenotypePhenotypeGraph, self).__repr__()
