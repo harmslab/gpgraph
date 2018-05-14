@@ -52,7 +52,7 @@ def flattened(G, scale=1, vertical=False):
     return positions
 
 
-def draw_flattened(G, ax=None, **kwds):
+def draw_flattened(G, ax=None, nodelist=[], **kwds):
     """Draw the GenotypePhenotypeGraph using Matplotlib.
 
     Draw the graph with Matplotlib with options for node positions,
@@ -168,14 +168,20 @@ def draw_flattened(G, ax=None, **kwds):
     # Flattened position
     pos = flattened(G, vertical=True)
 
+    if not nodelist:
+        nodelist = list(G.nodes().keys())
+
     # Default options
     options = dict(
         pos=pos,
+        nodelist=nodelist,
         arrows=False,
-        node_color=[G.node[n]['phenotypes'] for n in G.nodes()],
+        node_color=[G.nodes[n]['phenotypes'] for n in nodelist],
         cmap='plasma',
         edge_color='gray',
-        labels={n: G.node[n]['genotypes'] for n in G.nodes()})
+        labels={n: G.nodes[n]['genotypes'] for n in nodelist}
+    )
+
 
     options.update(**kwds)
-    nx.draw_networkx(G, **options)
+    return nx.draw_networkx(G, **options)
