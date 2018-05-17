@@ -29,8 +29,8 @@ def get_neighbors(genotype, mutations):
         # Construct neighbor genotypes.
         for j in options:
             genotype2[i] = j
-            genotype2 = "".join(genotype2)
-            neighbors += (genotype2,)
+            genotype2_ = "".join(genotype2)
+            neighbors += (genotype2_,)
     return neighbors
 
 
