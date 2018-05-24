@@ -1,6 +1,7 @@
 import numpy as np
 import networkx as nx
 from .draw import draw_flattened
+from .models import strong_selection_weak_mutation
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -36,9 +37,13 @@ def get_neighbors(genotype, mutations):
 
 class GenotypePhenotypeGraph(nx.DiGraph):
     """Construct a NetworkX DiGraph object from a GenotypePhenotypeMap."""
-    def __init__(self, gpm=None, *args, **kwargs):
+    def __init__(self, gpm, *args, **kwargs):
         super(GenotypePhenotypeGraph, self).__init__(*args, **kwargs)
         self.add_gpm(gpm)
+
+    def __repr__(self):
+        draw_flattened(self)
+        return super(GenotypePhenotypeGraph, self).__repr__()
 
     def add_gpm(self, gpm):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
@@ -67,6 +72,17 @@ class GenotypePhenotypeGraph(nx.DiGraph):
         # Add edges to network
         self.add_edges_from(edges)
 
-    def __repr__(self):
-        draw_flattened(self)
-        return super(GenotypePhenotypeGraph, self).__repr__()
+
+    def add_model(self, model=strong_selection_weak_mutation, **params):
+        """Add a transition model to the edges."""
+        # Add model to class.
+        self.model = staticmethod(model)
+
+        for edge in self.edges():
+            node1 = edge[0]
+            node2 = edge[1]
+
+            phenotype1 = self.gpm.phenotypes[node1]
+            phenotype2 = self.gpm.phenotypes[node2]
+
+            self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
