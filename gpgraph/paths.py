@@ -34,7 +34,7 @@ def forward_paths(G, source, target):
     return list(paths)
 
 
-def forward_path_prob(G, source, target):
+def forward_paths_prob(G, source, target):
     """Find forward paths and calculate their probability.
     """
     paths = forward_paths(G, source, target)
