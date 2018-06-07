@@ -2,6 +2,7 @@ import numpy as np
 import networkx as nx
 from .draw import draw_flattened
 from .models import strong_selection_weak_mutation
+from gpmap import GenotypePhenotypeMap
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -72,7 +73,6 @@ class GenotypePhenotypeGraph(nx.DiGraph):
         # Add edges to network
         self.add_edges_from(edges)
 
-
     def add_model(self, model=strong_selection_weak_mutation, **params):
         """Add a transition model to the edges."""
         # Add model to class.
@@ -86,3 +86,19 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             phenotype2 = self.gpm.phenotypes[node2]
 
             self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
+
+    @classmethod
+    def read_json(cls, fname):
+        """Read graph from json file."""
+        gpm = GenotypePhenotypeMap.read_json(fname)
+        return cls(gpm)
+
+    @classmethod
+    def read_csv(cls, fname, wildtype, mutations=None):
+        """Read graph from csv file."""
+        gpm = GenotypePhenotypeMap.read_json(
+            fname,
+            wildtype=wildtype,
+            mutations=mutations
+        )
+        return cls(gpm)
