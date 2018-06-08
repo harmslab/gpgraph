@@ -1,6 +1,5 @@
 import numpy as np
 import networkx as nx
-from .draw import draw_flattened
 from .models import strong_selection_weak_mutation
 from gpmap import GenotypePhenotypeMap
 
@@ -41,10 +40,6 @@ class GenotypePhenotypeGraph(nx.DiGraph):
     def __init__(self, gpm, *args, **kwargs):
         super(GenotypePhenotypeGraph, self).__init__(*args, **kwargs)
         self.add_gpm(gpm)
-
-    def __repr__(self):
-        draw_flattened(self)
-        return super(GenotypePhenotypeGraph, self).__repr__()
 
     def add_gpm(self, gpm):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
