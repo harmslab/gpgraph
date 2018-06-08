@@ -223,6 +223,7 @@ def draw_paths(
     G,
     paths,
     pos=None,
+    edge_equal=False,
     edge_scalar=1.0,
     edge_color='k',
     style='solid',
@@ -319,8 +320,14 @@ def draw_paths(
     # Get flux through edges
     edges = paths_prob_to_edges_flux(paths)
     edgelist = list(edges.keys())
-    width = edge_scalar * np.array(list(edges.values()))
 
+    edge_widths = np.array(list(edges.values()))
+    if edge_equal:
+        # Remove for zero prob edges
+        edge_widths[edge_widths > 0] = 1
+        width = edge_scalar * edge_widths
+    else:
+        width = edge_scalar * edge_widths
 
     if not nodelist:
         nodelist = list(G.nodes().keys())
