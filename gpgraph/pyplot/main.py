@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-from .positions import flattened
+from gpgraph.draw.positions import flattened
 
 def draw_map(
     G,

@@ -1,16 +1,8 @@
 import numpy as np
-import networkx as nx
-import matplotlib.pyplot as plt
-import matplotlib as mpl
+from gpgraph.paths import paths_prob_to_edges_flux
 
-from .utils import despine
-from ..paths import paths_prob_to_edges_flux
-
-def draw_paths(
-    G,
-    pos,
-    paths,
-    ax=None,
+def get_path_options(
+    G, pos, paths,
     edge_equal=False,
     edge_scalar=1.0,
     edge_color='k',
@@ -20,7 +12,7 @@ def draw_paths(
     arrowstyle='-|>',
     arrowsize=10,
     ):
-    """Draw paths in GenotypePhenotypeGraph
+    """Get path options.
 
     Parameters
     ----------
@@ -55,9 +47,6 @@ def draw_paths(
     edge_vmin,edge_vmax : floats
        Minimum and maximum for edge colormap scaling (default=None)
 
-    ax : Matplotlib Axes object, optional
-       Draw the graph in the specified Matplotlib axes.
-
     arrows : bool, optional (default=True)
        For directed graphs, if True draw arrowheads.
        Note: Arrows will be the same color as edges.
@@ -71,18 +60,7 @@ def draw_paths(
        For directed graphs, choose the size of the arrow head head's length and
        width. See :py:class: `matplotlib.patches.FancyArrowPatch` for attribute
        `mutation_scale` for more info.
-
-    label : [None| string]
-       Label for legend
-
     """
-    # Get Figure.
-    if ax is None:
-        fig, ax = plt.subplots()
-    else:
-        fig = ax.get_figure()
-    ax = despine(ax)
-
     # Get flux through edges
     edges = paths_prob_to_edges_flux(paths)
     edgelist = list(edges.keys())
@@ -95,17 +73,15 @@ def draw_paths(
     else:
         width = edge_scalar * edge_widths
 
-    # Draw edges
-    nx.draw_networkx_edges(
-        G=G,
-        pos=pos,
+    options = dict(
         edgelist=edgelist,
         width=width,
         edge_color=edge_color,
-        ax=ax,
         style=style,
         alpha=edge_alpha,
         arrows=arrows,
         arrowstyle=arrowstyle,
         arrowsize=arrowsize,
     )
+
+    return options

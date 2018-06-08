@@ -4,23 +4,28 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 from gpgraph.draw.utils import despine
+from gpgraph.draw.paths import get_path_options
 
-def draw_map_edges(
+def draw_paths(
     G,
     pos,
+    paths,
     ax=None,
-    edgelist=None,
-    width=1,
+    edge_equal=False,
+    edge_scalar=1.0,
     edge_color='k',
-    alpha=1.0,
-    **kwds
+    style='solid',
+    edge_alpha=1.0,
+    arrows=False,
+    arrowstyle='-|>',
+    arrowsize=10,
     ):
-    """Draw the edges of genotype-phenotype map.
+    """Draw paths in GenotypePhenotypeGraph
 
     Parameters
     ----------
     G : graph
-       A GenotypePhenotypeGraph.
+       A networkx graph
 
     pos : dictionary
        A dictionary with nodes as keys and positions as values.
@@ -69,6 +74,7 @@ def draw_map_edges(
 
     label : [None| string]
        Label for legend
+
     """
     # Get Figure.
     if ax is None:
@@ -77,14 +83,18 @@ def draw_map_edges(
         fig = ax.get_figure()
     ax = despine(ax)
 
-    # Options for observed nodes
-    options = dict(
-        pos=pos,
-        edgelist=edgelist,
-        width=width,
+    # Get path_options.
+    path_options = get_path_options(
+        G, pos, paths,
+        edge_equal=edge_equal,
+        edge_scalar=edge_scalar,
         edge_color=edge_color,
-        alpha=alpha,
+        style=style,
+        edge_alpha=edge_alpha,
+        arrows=arrows,
+        arrowstyle=arrowstyle,
+        arrowsize=arrowsize,
     )
 
-    options.update(**kwds)
-    nx.draw_networkx_edges(G, **options)
+    # Draw edges
+    nx.draw_networkx_edges(G, pos, ax=ax, **path_options)
