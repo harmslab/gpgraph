@@ -25,14 +25,15 @@ def get_neighbors(genotype, mutations):
         genotype2 = list(genotype)[:]
 
         # Find possible mutations at site i.
-        options = mutations[i][:]
-        options.remove(char)
+        if mutations[i] is not None:
+            options = mutations[i][:]
+            options.remove(char)
 
-        # Construct neighbor genotypes.
-        for j in options:
-            genotype2[i] = j
-            genotype2_ = "".join(genotype2)
-            neighbors += (genotype2_,)
+            # Construct neighbor genotypes.
+            for j in options:
+                genotype2[i] = j
+                genotype2_ = "".join(genotype2)
+                neighbors += (genotype2_,)
     return neighbors
 
 
