@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-from gpgraph.draw.utils import despine
+from .utils import despine
 from gpgraph.draw.paths import get_path_options
 
 def draw_paths(

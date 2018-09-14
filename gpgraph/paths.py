@@ -42,9 +42,12 @@ def forward_paths_prob(G, source, target):
     path_prob = {}
     for path in paths:
         p = 1
+        xx = []
         for i in range(len(path)-1):
             edge = (path[i], path[i+1])
             p *= G.edges[edge]["prob"]
+            xx.append(G.edges[edge]["prob"])
+        #print(xx, p)
         path_prob[tuple(path)] = p
 
     return path_prob

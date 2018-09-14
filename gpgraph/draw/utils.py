@@ -1,16 +1,3 @@
-
-
-def despine(ax=None):
-    """Despline axes."""
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
-    ax.set_xticks([])
-    ax.set_yticks([])
-    return ax
-
-
 def get_nodes_from_attributes(G, attrs):
     """Convert any list of attributes to a index list."""
     # Get one item from list.

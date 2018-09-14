@@ -3,8 +3,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-from gpgraph.draw.utils import despine, get_nodes_from_attributes
+from gpgraph.draw.utils import get_nodes_from_attributes
 from gpgraph.draw.nodes import get_node_options
+from .utils import despine
 
 def draw_map_nodes(
     G,

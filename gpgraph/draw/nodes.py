@@ -7,6 +7,7 @@ def get_node_options(
     cmap='plasma',
     colorbar=False,
     node_size=300,
+    node_color=None,
     **kwds
     ):
     """
@@ -66,23 +67,30 @@ def get_node_options(
         vmin = min(phenotypes)
         vmax = max(phenotypes)
 
+
     # Options for observed nodes
     colored_options = dict(
         pos=pos,
         nodelist=colored_nodelist,
         vmin=vmin,
         vmax=vmax,
-        node_color=[G.nodes[n]['phenotypes'] for n in colored_nodelist],
         cmap=cmap,
         node_size=node_size,
+        node_color=node_color
     )
+    if node_color is None:
+        colored_options.update(
+            node_color=[G.nodes[n]['phenotypes'] for n in colored_nodelist]
+        )
+
+
     colored_options.update(**kwds)
 
     # Options for missing nodes
     missing_options = dict(
         pos=pos,
         nodelist=missing_nodelist,
-        node_color=['white' for n in missing_nodelist],
+        node_color='white',
         linewidths=1.0,
         edgecolors='k',
         node_size=node_size,
