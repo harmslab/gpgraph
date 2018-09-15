@@ -126,3 +126,12 @@ def paths_prob_to_edges_flux(paths_prob):
                 edge_flux[edge] = prob
 
     return edge_flux
+
+
+def edges_flux_to_node_flux(G):
+    """Sum all flux from incoming edges for each node"""
+    node_fluxes = {}
+    for node in G.nodes:
+        node_flux = sum([edge[2] for edge in list(G.in_edges(node, data="capacity")) if edge[2]])
+        node_fluxes[node] = node_flux
+    return node_fluxes
