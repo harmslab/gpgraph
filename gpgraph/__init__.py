@@ -1,2 +1,2 @@
 from .base import GenotypePhenotypeGraph
-from .draw import draw_flattened
+from .pyplot import draw_gpgraph
