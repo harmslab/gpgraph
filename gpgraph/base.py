@@ -86,7 +86,11 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             phenotype1 = self.gpm.phenotypes[node1]
             phenotype2 = self.gpm.phenotypes[node2]
 
-            self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
+            try:
+                self.edges[edge]['prob'] = model(phenotype1, phenotype2, node1, node2, **params)
+            except TypeError:
+                self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
+
 
     @classmethod
     def read_json(cls, fname):
