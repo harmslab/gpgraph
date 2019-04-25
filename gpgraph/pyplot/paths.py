@@ -1,12 +1,13 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from .utils import despine
 
 
 def draw_paths(
     G,
     paths,
-    pos=None,
+    pos,
     edge_equal=False,
     edge_scalar=1.0,
     edge_color='k',
@@ -100,43 +101,15 @@ def draw_paths(
     # Get Figure.
     if ax is None:
         fig, ax = plt.subplots()
+        despline(ax)
     else:
         fig = ax.get_figure()
 
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
-    ax.set_xticks([])
-    ax.set_yticks([])
-
-    # Get positions of nodes.
-    if pos is None:
-        pos = flattened(G, vertical=True)
-
     # Get flux through edges
     edges = paths_prob_to_edges_flux(paths)
-    edgelist = list(edges.keys())
+    edge_list = list(edges.keys())
 
 
-    edge_widths = np.array(list(edges.values()))
-    if edge_equal:
-        # Remove for zero prob edges
-        edge_widths[edge_widths > 0] = 1
-        width = edge_scalar * edge_widths
-    else:
-        width = edge_scalar * edge_widths
-
-    if not nodelist:
-        nodelist = list(G.nodes().keys())
-
-    if vmax is None:
-        phenotypes = G.gpm.phenotypes
-        vmin = min(phenotypes)
-        vmax = max(phenotypes)
-
-    if cmap_truncate:
-        cmap = truncate_colormap(cmap, minval=cmap_min, maxval=cmap_max)
 
     # Default options
     node_options = dict(

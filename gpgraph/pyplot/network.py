@@ -13,6 +13,7 @@ def draw_gpgraph(
     pos=None,
     ax=None,
     figsize=None,
+    paths=None,
     edge_list=None,
     edge_widths=1.0,
     edge_scalar=1.0,
@@ -57,8 +58,11 @@ def draw_gpgraph(
     ax : Matplotlib Axes object, optional
        Draw the graph in the specified Matplotlib axes.
 
+    paths : list of tuples
+        If Paths
+
     edge_list : list, optional (default=G.edges())
-       Draw only specified edges
+       Draw only specified edges. If `paths` is given, then edge_list is ignored. 
 
     edge_widths : float, or array of floats
        Relative Line width of edges (default=1.0). Use scalar to chat width.
@@ -153,6 +157,8 @@ def draw_gpgraph(
     pos = flattened(G, vertical=True)
 
     # Style and draw edges
+    if paths is not None:
+        edge_list 
     if edge_list is None:
         edge_list = list(G.edges().keys())
 
@@ -192,3 +198,5 @@ def draw_gpgraph(
     )
 
     draw_nodes(G, pos, ax=ax, **node_options)
+
+    return fig, ax

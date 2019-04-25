@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-from .draw import draw_flattened
+from .pyplot import draw_gpgraph
 from .models import strong_selection_weak_mutation
 from gpmap import GenotypePhenotypeMap
 
