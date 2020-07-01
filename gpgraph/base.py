@@ -1,8 +1,10 @@
 import numpy as np
 import networkx as nx
+
+from .draw import draw_flattened
 from .pyplot import draw_gpgraph
 from .models import strong_selection_weak_mutation
-from gpmap import GenotypePhenotypeMap
+from gpmap.gpm import GenotypePhenotypeMap
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -20,10 +22,10 @@ def get_neighbors(genotype, mutations):
         tuple of neighbors.
     """
     neighbors = tuple()
-    for i, char in enumerate(genotype):
-        # Copy reference genotype
-        genotype2 = list(genotype)[:]
+    # Copy reference genotype
+    genotype2 = list(genotype)[:]
 
+    for i, char in enumerate(genotype):
         # Find possible mutations at site i.
         if mutations[i] is not None:
             options = mutations[i][:]

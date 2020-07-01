@@ -12,13 +12,14 @@ comes with a draw method, `draw_flattened`, suited for genotype-phenotype maps.
 
 ```python
 from gpmap.simulate import MountFujiSimulation
-from gpgraph import GenotypePhenotypeGraph, draw_flattened
+from gpgraph.base import GenotypePhenotypeGraph
+from gpgraph.draw import draw_flattened
 
 # Simulate a genotype-phenotype map
-sim = MountFujiSimulation.from_length(4, roughness_width=1)
+simulation = MountFujiSimulation.from_length(4, roughness_width=1)
 
 # Turn the genotype-phenotype map into a networkx object
-G = GenotypePhenotypeGraph(gpm)
+G = GenotypePhenotypeGraph(simulation)
 
 # Draw the graph
 draw_flattened(G, with_labels=False, node_size=100)

@@ -1,4 +1,5 @@
-numpy
+gpmap>=0.6.1
 matplotlib
 networkx
-gpmap
+numpy>=1.15.2
+pytest>=3.8.1

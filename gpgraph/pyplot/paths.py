@@ -5,34 +5,34 @@ from .utils import despine
 
 
 def draw_paths(
-    G,
-    paths,
-    pos,
-    edge_equal=False,
-    edge_scalar=1.0,
-    edge_color='k',
-    style='solid',
-    edge_alpha=1.0,
-    arrows=False,
-    arrowstyle='-|>',
-    arrowsize=10,
-    nodelist=None,
-    node_size=300,
-    node_color='r',
-    node_shape='o',
-    alpha=1.0,
-    cmap='plasma',
-    cmap_truncate=False,
-    cmap_max=0.95,
-    cmap_min=0.05,
-    vmin=None,
-    vmax=None,
-    ax=None,
-    linewidths=0,
-    edgecolors="black",
-    label=None,
-    colorbar=False,
-    ):
+        G,
+        paths,
+        pos,
+        edge_equal=False,
+        edge_scalar=1.0,
+        edge_color='k',
+        style='solid',
+        edge_alpha=1.0,
+        arrows=False,
+        arrowstyle='-|>',
+        arrowsize=10,
+        nodelist=None,
+        node_size=300,
+        node_color='r',
+        node_shape='o',
+        alpha=1.0,
+        cmap='plasma',
+        cmap_truncate=False,
+        cmap_max=0.95,
+        cmap_min=0.05,
+        vmin=None,
+        vmax=None,
+        ax=None,
+        linewidths=0,
+        edgecolors="black",
+        label=None,
+        colorbar=False,
+):
     """Draw paths in GenotypePhenotypeGraph
 
     Parameters
@@ -109,8 +109,6 @@ def draw_paths(
     edges = paths_prob_to_edges_flux(paths)
     edge_list = list(edges.keys())
 
-
-
     # Default options
     node_options = dict(
         nodelist=nodelist,
@@ -149,7 +147,7 @@ def draw_paths(
         **node_options
     )
 
-    # Add a colorbar?
+    # Add a colorbar
     if colorbar:
         norm = mpl.colors.Normalize(
             vmin=vmin,

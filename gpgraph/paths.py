@@ -1,6 +1,6 @@
-
 from collections import Counter
 import networkx as nx
+
 
 def forward_paths(G, source, target):
     """Return all forward paths from source genotype to
@@ -42,8 +42,8 @@ def forward_paths_prob(G, source, target):
     path_prob = {}
     for path in paths:
         p = 1
-        for i in range(len(path)-1):
-            edge = (path[i], path[i+1])
+        for i in range(len(path) - 1):
+            edge = (path[i], path[i + 1])
             p *= G.edges[edge]["prob"]
         path_prob[tuple(path)] = p
 
@@ -68,7 +68,7 @@ def paths_to_edges(paths, repeat=False):
     """
     edges = []
     for path in paths:
-        edges += [(path[i], path[i+1]) for i in range(len(path)-1)]
+        edges += [(path[i], path[i + 1]) for i in range(len(path) - 1)]
 
     # Return a list of edges with repeats
     if repeat:
@@ -113,9 +113,9 @@ def paths_prob_to_edges_flux(paths_prob):
     edge_flux = {}
     for path, prob in paths_prob.items():
 
-        for i in range(len(path)-1):
+        for i in range(len(path) - 1):
             # Get edge
-            edge = (path[i], path[i+1])
+            edge = (path[i], path[i + 1])
 
             # Get path probability to edge.
             if edge in edge_flux:

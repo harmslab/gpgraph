@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 
+
 def despine(ax=None):
     """Despline axes."""
     ax.spines['right'].set_visible(False)
@@ -10,6 +11,7 @@ def despine(ax=None):
     ax.spines['bottom'].set_visible(False)
     ax.set_xticks([])
     ax.set_yticks([])
+
 
 def truncate_colormap(cmap_str, minval=0.0, maxval=1.0, n=100):
     """Truncate a colormap to a narrower subspace of the spectrum."""
@@ -29,7 +31,7 @@ def bins(G):
         A GenotypePhenotypeGraph object.
     """
     bins = {}
-    for i in range(0, len(G.nodes("binary")[0])+1):
+    for i in range(0, len(G.nodes("binary")[0]) + 1):
         bins[i] = []
 
     for node in range(len(list(G.nodes()))):

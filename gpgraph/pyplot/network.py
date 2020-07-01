@@ -10,36 +10,37 @@ from .pos import flattened
 
 from ..paths import paths_prob_to_edges_flux
 
+
 def draw_gpgraph(
-    G,
-    pos=None,
-    ax=None,
-    figsize=None,
-    paths=None,
-    edge_list=None,
-    edge_widths=1.0,
-    edge_scalar=1.0,
-    edge_colors="black",
-    edge_style="solid",
-    edge_alpha=1.0,
-    edge_arrows=False,
-    edge_arrowstyles="-|>",
-    edge_arrowsize=10,
-    node_list=None, 
-    node_size=300,
-    node_color="r",
-    node_shape="o",
-    node_alpha=1.0,
-    node_linewidths=0,
-    node_edgecolors="black",
-    cmap="plasma",
-    cmap_truncate=False,
-    cmap_max=0.95,
-    cmap_min=0.05,
-    colorbar=False,
-    vmin=None,
-    vmax=None
-    ):
+        G,
+        pos=None,
+        ax=None,
+        figsize=None,
+        paths=None,
+        edge_list=None,
+        edge_widths=1.0,
+        edge_scalar=1.0,
+        edge_colors="black",
+        edge_style="solid",
+        edge_alpha=1.0,
+        edge_arrows=False,
+        edge_arrowstyles="-|>",
+        edge_arrowsize=10,
+        node_list=None,
+        node_size=300,
+        node_color="r",
+        node_shape="o",
+        node_alpha=1.0,
+        node_linewidths=0,
+        node_edgecolors="black",
+        cmap="plasma",
+        cmap_truncate=False,
+        cmap_max=0.95,
+        cmap_min=0.05,
+        colorbar=False,
+        vmin=None,
+        vmax=None
+):
     """Draw the GenotypePhenotypeGraph using Matplotlib.
 
     Draw the graph with Matplotlib with options for node positions,
@@ -183,10 +184,10 @@ def draw_gpgraph(
 
     # Style and draw nodes
     if node_list is None:
-        node_list = list(G.nodes().keys()) 
+        node_list = list(G.nodes().keys())
 
     node_options = dict(
-        node_list=node_list, 
+        node_list=node_list,
         size=node_size,
         color=node_color,
         shape=node_shape,
