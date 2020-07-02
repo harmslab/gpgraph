@@ -8,20 +8,24 @@ Port a `GenotypePhenotypeMap` to a [NetworkX Digraph](https://networkx.github.io
 
 GPGraph follows NetworkX syntax. Initialize a graph, add the
 genotype-phenotype map object, and draw the graph. This library even
-comes with a draw method, `draw_flattened`, suited for genotype-phenotype maps.
+comes with a draw method, `draw_gpgrpah`, suited for genotype-phenotype graphs.
 
 ```python
 from gpmap.simulate import MountFujiSimulation
-from gpgraph import GenotypePhenotypeGraph, draw_flattened
+from gpgraph import GenotypePhenotypeGraph
+from gpgraph.pyplot import draw_gpgraph, draw_edges
+import networkx as nx
 
 # Simulate a genotype-phenotype map
 sim = MountFujiSimulation.from_length(4, roughness_width=1)
 
 # Turn the genotype-phenotype map into a networkx object
-G = GenotypePhenotypeGraph(gpm)
+G = GenotypePhenotypeGraph(sim)
 
 # Draw the graph
-draw_flattened(G, with_labels=False, node_size=100)
+figure = draw_gpgraph(G,
+                      edge_colors = 'gray', 
+                      node_size=400)
 ```
 <img src="docs/_img/readme-fig.png" width="350">
 
@@ -33,3 +37,14 @@ Clone this repo and install with `pip`:
 ```
 pip install -e .
 ```
+
+## To develop
+
+Clone this repo and run `setup.py` as follows
+
+```
+python setup.py develop --user
+```
+
+This way, if only python scripts are being changed nothing has
+to be reinstalled.
