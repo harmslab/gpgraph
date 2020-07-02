@@ -25,7 +25,7 @@ def flattened(G, scale=1, vertical=False):
     offsets = {}
     positions = {}
     for n in range(len(list(G.nodes()))):
-        node = graph.node[n]
+        node = graph.nodes[n]
         # Calculate the level of each node
         level = node["binary"].count("1")
         if level in offsets:
