@@ -8,7 +8,7 @@ Port a `GenotypePhenotypeMap` to a [NetworkX Digraph](https://networkx.github.io
 
 GPGraph follows NetworkX syntax. Initialize a graph, add the
 genotype-phenotype map object, and draw the graph. This library even
-comes with a draw method, `draw_gpgrpah`, suited for genotype-phenotype graphs.
+comes with a draw method, `draw_gpgraph`, suited for genotype-phenotype graphs.
 
 ```python
 from gpmap.simulate import MountFujiSimulation
