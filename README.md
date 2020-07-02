@@ -14,7 +14,6 @@ comes with a draw method, `draw_gpgraph`, suited for genotype-phenotype graphs.
 from gpmap.simulate import MountFujiSimulation
 from gpgraph import GenotypePhenotypeGraph
 from gpgraph.pyplot import draw_gpgraph, draw_edges
-import networkx as nx
 
 # Simulate a genotype-phenotype map
 sim = MountFujiSimulation.from_length(4, roughness_width=1)
