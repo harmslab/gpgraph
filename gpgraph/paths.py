@@ -17,10 +17,7 @@ def forward_paths(G, source, target):
         raise Exception("G must be a GenotypePhenotypeGraph.")
 
     # Get source and target from G. Is it genotype, binary, or node number
-    if source in G.gpm.index:
-        pass
-
-    elif source in G.gpm.genotypes:
+    if source in G.gpm.genotypes:
         series = list(G.gpm.genotypes)
         source = series.index(source)
         target = series.index(target)

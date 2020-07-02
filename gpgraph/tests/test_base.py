@@ -30,7 +30,7 @@ def gpgraph_test(gpmap_base):
 @pytest.fixture
 def binary_gpgraph():
     gpbinary = get_neighbors('000', {0: ['0', '1'], 1: ['0', '1'], 2: ['0', '1']})
-    gpbinary = np.array(gpbinary)
+    gpbinary = np.array(gpbinary).sort()
 
     return gpbinary
 
@@ -40,14 +40,19 @@ def test_attributes(gpmap_base):
     assert gpmap_base.wildtype == "AAA"
     np.testing.assert_array_equal(gpmap_base.genotypes,
                                   np.array(["AAA", "AAT", "ATA", "TAA", "ATT", "TAT", "TTA", "TTT"]))
-    np.testing.assert_array_equal(gpmap_base.phenotypes, np.array([0.1, 0.2, 0.2, 0.6, 0.4, 0.6, 1.0, 1.1]))
-    np.testing.assert_array_equal(gpmap_base.stdeviations, np.array([0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]))
+    np.testing.assert_array_equal(gpmap_base.phenotypes,
+                                  np.array([0.1, 0.2, 0.2, 0.6, 0.4, 0.6, 1.0, 1.1]))
+    np.testing.assert_array_equal(gpmap_base.stdeviations,
+                                  np.array([0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]))
 
 
 def test_get_neighbors(gpmap_base, binary_gpgraph):
     """"Test if function can find all neighboring nodes"""
-    assert get_neighbors(gpmap_base.genotypes[1], gpmap_base.mutations) == ('TAT', 'TTT', 'TTA')
-    np.testing.assert_array_equal(binary_gpgraph, np.array(['100', '110', '111']))
+    found_neighbors = np.array(get_neighbors(gpmap_base.genotypes[1], gpmap_base.mutations)).sort()
+    desired_neighbors = np.array(['TAT', 'TTT', 'TTA']).sort()
+    np.testing.assert_array_equal(found_neighbors,
+                                  desired_neighbors)
+    np.testing.assert_array_equal(binary_gpgraph, np.array(['100', '110', '111']).sort())
 
 
 def test_type(gpgraph_test):

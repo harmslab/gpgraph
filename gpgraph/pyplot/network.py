@@ -2,12 +2,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-
 from .nodes import draw_nodes
 from .edges import draw_edges
 from .utils import despine
 from .pos import flattened
-
 from ..paths import paths_prob_to_edges_flux
 
 
@@ -50,83 +48,83 @@ def draw_gpgraph(
     Parameters
     ----------
     G : graph
-        A networkx graph
+       A networkx graph
 
     pos : dictionary, optional
-        A dictionary with nodes as keys and positions as values.
-        If not specified a spring layout positioning will be computed.
-        See :py:mod:`networkx.drawing.layout` for functions that
-        compute node positions.
+       A dictionary with nodes as keys and positions as values.
+       If not specified a spring layout positioning will be computed.
+       See :py:mod:`networkx.drawing.layout` for functions that
+       compute node positions.
 
     ax : Matplotlib Axes object, optional
-        Draw the graph in the specified Matplotlib axes.
+       Draw the graph in the specified Matplotlib axes.
 
     paths : list of tuples
         If Paths
 
     edge_list : list, optional (default=G.edges())
-        Draw only specified edges. If `paths` is given, then edge_list is ignored. 
+       Draw only specified edges. If `paths` is given, then edge_list is ignored. 
 
     edge_widths : float, or array of floats
-        Relative Line width of edges (default=1.0). Use scalar to chat width.
+       Relative Line width of edges (default=1.0). Use scalar to chat width.
 
     edge_scalar : float
-        Scale all edges (default=1.0)
+       Scale all edges (default=1.0)
 
     edge_colors : color string, or array of floats
-        Edge color. Can be a single color format string (default='r'),
-        or a sequence of colors with the same length as edgelist.
-        If numeric values are specified they will be mapped to
-        colors using the edge_cmap and edge_vmin,edge_vmax parameters.
+       Edge color. Can be a single color format string (default='r'),
+       or a sequence of colors with the same length as edgelist.
+       If numeric values are specified they will be mapped to
+       colors using the edge_cmap and edge_vmin,edge_vmax parameters.
 
     edge_style : string
-        Edge line style (default='solid') (solid|dashed|dotted,dashdot)
+       Edge line style (default='solid') (solid|dashed|dotted,dashdot)
 
     edge_alpha : float
-        The edge transparency (default=1.0)
+       The edge transparency (default=1.0)
 
     edge_arrows : bool, optional (default=True)
-        For directed graphs, if True draw arrowheads.
-        Note: Arrows will be the same color as edges.
+       For directed graphs, if True draw arrowheads.
+       Note: Arrows will be the same color as edges.
 
     edge_arrowstyles : str, optional (default='-|>')
-        For directed graphs, choose the style of the arrow heads.
-        See :py:class: `matplotlib.patches.ArrowStyle` for more
-        options.
+       For directed graphs, choose the style of the arrow heads.
+       See :py:class: `matplotlib.patches.ArrowStyle` for more
+       options.
 
     edge_arrowsize : int, optional (default=10)
-        For directed graphs, choose the size of the arrow head head's length and
-        width. See :py:class: `matplotlib.patches.FancyArrowPatch` for attribute
-        `mutation_scale` for more info.
+       For directed graphs, choose the size of the arrow head head's length and
+       width. See :py:class: `matplotlib.patches.FancyArrowPatch` for attribute
+       `mutation_scale` for more info.
 
     node_list : list, optional (default G.nodes())
-        Draw only specified nodes 
+       Draw only specified nodes 
 
     node_size : scalar or array, optional (default=300)
-        Size of nodes.  If an array is specified it must be the
-        same length as nodelist.
+       Size of nodes.  If an array is specified it must be the
+       same length as nodelist.
 
     node_color : color string, or array of floats, (default=phenotypes)
-        Node color. Can be a single color format string,
-        or a  sequence of colors with the same length as nodelist.
-        If numeric values are specified they will be mapped to
-        colors using the cmap and vmin,vmax parameters.  See
-        matplotlib.scatter for more details.
+       Node color. Can be a single color format string,
+       or a  sequence of colors with the same length as nodelist.
+       If numeric values are specified they will be mapped to
+       colors using the cmap and vmin,vmax parameters.  See
+       matplotlib.scatter for more details.
 
     node_shape :  string, optional (default='o')
-        The shape of the node.  Specification is as matplotlib.scatter
-        marker, one of 'so^>v<dph8'.
+       The shape of the node.  Specification is as matplotlib.scatter
+       marker, one of 'so^>v<dph8'.
 
     node_alpha : float, optional (default=1.0)
-        The node and edge transparency
+       The node and edge transparency
 
     node_linewidths : [None | scalar | sequence]
-        Line width of symbol border (default =1.0)
+       Line width of symbol border (default =1.0)
 
     node_edgecolors: "black"
 
     cmap : Matplotlib colormap, optional (default='plasmas')
-        Colormap for mapping intensities of nodes
+       Colormap for mapping intensities of nodes
 
     cmap_truncate : bool
         Use only a subspace of the color map spectrum. If False whole color spectrum (0 to 1) is used.
@@ -141,7 +139,7 @@ def draw_gpgraph(
         If True, show colorbar for nodes.
 
     vmin,vmax : float, optional (default=None)
-        Minimum and maximum for node colormap scaling
+       Minimum and maximum for node colormap scaling
 
     Notes
     -----
@@ -164,10 +162,8 @@ def draw_gpgraph(
         edges = paths_prob_to_edges_flux(paths)
         edge_list = list(edges.keys())
         edge_widths = edge_scalar * np.array(list(edges.values()))
-
     if edge_list is None:
         edge_list = list(G.edges().keys())
-
     edge_options = dict(
         edge_list=edge_list,
         widths=edge_widths,
@@ -179,13 +175,10 @@ def draw_gpgraph(
         arrowstyles=edge_arrowstyles,
         arrowsize=edge_arrowsize
     )
-
     draw_edges(G, pos, ax=ax, **edge_options)
-
     # Style and draw nodes
     if node_list is None:
         node_list = list(G.nodes().keys())
-
     node_options = dict(
         node_list=node_list,
         size=node_size,
@@ -202,7 +195,5 @@ def draw_gpgraph(
         vmin=vmin,
         vmax=vmax,
     )
-
     draw_nodes(G, pos, ax=ax, **node_options)
-
     return fig, ax

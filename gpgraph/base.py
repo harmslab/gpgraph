@@ -1,10 +1,8 @@
 import numpy as np
 import networkx as nx
-
-from .draw import draw_flattened
 from .pyplot import draw_gpgraph
 from .models import strong_selection_weak_mutation
-from gpmap.gpm import GenotypePhenotypeMap
+from gpmap import GenotypePhenotypeMap
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -22,10 +20,10 @@ def get_neighbors(genotype, mutations):
         tuple of neighbors.
     """
     neighbors = tuple()
-    # Copy reference genotype
-    genotype2 = list(genotype)[:]
-
     for i, char in enumerate(genotype):
+        # Copy reference genotype
+        genotype2 = list(genotype)[:]
+
         # Find possible mutations at site i.
         if mutations[i] is not None:
             options = mutations[i][:]
@@ -46,7 +44,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
         self.add_gpm(gpm)
 
     def __repr__(self):
-        draw_flattened(self)
+        draw_gpgraph(self)
         return super(GenotypePhenotypeGraph, self).__repr__()
 
     def add_gpm(self, gpm):
@@ -88,11 +86,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
             phenotype1 = self.gpm.phenotypes[node1]
             phenotype2 = self.gpm.phenotypes[node2]
 
-            try:
-                self.edges[edge]['prob'] = model(phenotype1, phenotype2, node1, node2, **params)
-            except TypeError:
-                self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
-
+            self.edges[edge]['prob'] = model(phenotype1, phenotype2, **params)
 
     @classmethod
     def read_json(cls, fname):

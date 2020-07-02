@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def despine(ax=None):
-    """Despline axes."""
+    """Despine axes."""
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.spines['top'].set_visible(False)

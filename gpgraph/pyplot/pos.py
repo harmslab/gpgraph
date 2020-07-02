@@ -13,8 +13,6 @@ def flattened(G, scale=1, vertical=False):
         A genotype-phenotype objects
     scale : float (default=1)
         density of the nodes.
-    vertical : orient positions along
-        a vertical axis
 
     Returns
     -------

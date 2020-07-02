@@ -93,7 +93,7 @@ def draw_nodes(
         **node_options
     )
 
-    # Add a colorbar
+    # Add a colorbar?
     if colorbar:
         norm = mpl.colors.Normalize(
             vmin=vmin,

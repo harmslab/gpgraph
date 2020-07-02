@@ -1,16 +1,23 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from gpgraph.paths import paths_prob_to_edges_flux, forward_paths_prob
+from gpgraph.pyplot.pos import flattened
+
 from .utils import despine
 
 
 def draw_paths(
         G,
-        paths,
-        pos,
+        paths=None,
+        pos=None,
+        edge_list=None,
+        source = None,
+        target = None,
         edge_equal=False,
         edge_scalar=1.0,
         edge_color='k',
+        width = 1.0,
         style='solid',
         edge_alpha=1.0,
         arrows=False,
@@ -40,11 +47,21 @@ def draw_paths(
     G : graph
        A networkx graph
 
+    paths : All forward paths from source genotype to
+        target genotype.
+
+    source: source genotype. Default value is the first value
+        in the list of genotypes.
+
+    target: target genotype. Default value is the last value
+        in the list of genotypes.
+
     pos : dictionary
        A dictionary with nodes as keys and positions as values.
        Positions should be sequences of length 2.
+       Default value uses flattened function included in gpgraph.utils.
 
-    edgelist : collection of edge tuples
+    edge_list : collection of edge tuples
        Draw only specified edges(default=G.edges())
 
     width : float, or array of floats
@@ -98,10 +115,29 @@ def draw_paths(
        Label for legend
 
     """
+    # Check what values were passed to function, or assign default values
+    if not pos:
+        pos = flattened(G)
+
+    if not edge_list:
+        edge_list = G.edges()
+
+    if not nodelist:
+        nodelist = G.nodes()
+
+    if not source:
+        source = G.gpm.genotypes[0]
+
+    if not target:
+        target = G.gpm.genotypes[-1]
+
+    if not paths:
+        paths = forward_paths_prob(G, source, target)
+
     # Get Figure.
     if ax is None:
         fig, ax = plt.subplots()
-        despline(ax)
+        despine(ax)
     else:
         fig = ax.get_figure()
 
@@ -111,7 +147,7 @@ def draw_paths(
 
     # Default options
     node_options = dict(
-        nodelist=nodelist,
+        nodelist=G.nodes(),
         vmin=vmin,
         vmax=vmax,
         node_shape=node_shape,
@@ -128,7 +164,7 @@ def draw_paths(
     nx.draw_networkx_edges(
         G=G,
         pos=pos,
-        edgelist=edgelist,
+        edgelist=edge_list,
         width=width,
         edge_color=edge_color,
         ax=ax,
@@ -147,7 +183,7 @@ def draw_paths(
         **node_options
     )
 
-    # Add a colorbar
+    # Add a color bar
     if colorbar:
         norm = mpl.colors.Normalize(
             vmin=vmin,
