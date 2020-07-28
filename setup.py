@@ -11,6 +11,7 @@ from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
 
+
 # Package meta-data.
 NAME = 'gpgraph'
 DESCRIPTION = 'NetworkX for genotype-phenotype maps.'
@@ -27,13 +28,9 @@ REQUIRED = []
 # If you do change the License, remember to change the Trove Classifier for
 # that!
 
-here = os.path.abspath(os.path.dirname(__file__))
-
-# Import the README and use it as the long-description.
-# Note: this will only work if 'README.rst' is present in your MANIFEST.in
-# file!
-with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = '\n' + f.read()
+# Updated way of reading the long description
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 # Load the package's __version__.py module as a dictionary.
 about = {}
@@ -75,12 +72,17 @@ class UploadCommand(Command):
         sys.exit()
 
 
-# Where the magic happens:
-setup(
+# Edited o 7-27-20 to allow Project Description on Pypi
+# to show up with pretty formatting
+
+
+setuptools.setup(
     name=NAME,
     version=about['__version__'],
     description=DESCRIPTION,
     long_description=long_description,
+	long_description_content_type="text/markdown",
+	url="https://github.com/harmslab/gpgraph",
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
