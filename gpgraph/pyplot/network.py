@@ -1,11 +1,9 @@
-import networkx as nx
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 import numpy as np
-from .nodes import draw_nodes
 from .edges import draw_edges
-from .utils import despine
+from .nodes import draw_nodes
 from .pos import flattened
+from .utils import despine
 from ..paths import paths_prob_to_edges_flux
 
 
@@ -154,8 +152,9 @@ def draw_gpgraph(
     else:
         fig = ax.get_figure()
 
-    # Flattened positions
-    pos = flattened(G, vertical=True)
+    # Flattened positions by default
+    if pos is None:
+        pos = flattened(G, vertical=True)
 
     # Style and draw edges
     if paths is not None:

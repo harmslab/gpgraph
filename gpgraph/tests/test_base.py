@@ -72,12 +72,10 @@ def test_read_json(gpgraph_test):
     np.testing.assert_array_equal(gpgraph_test.nodes, read_gpm.nodes)
 
 
-# Read CSV is currently failing
-
-# def test_read_csv(gpgraph_test):
-#     """Test reading from json"""
-#     read_gpm = GenotypePhenotypeGraph.read_csv("data/test_data.csv", wildtype='AAA')
-#     # Test instance was created
-#     assert isinstance(read_gpm, GenotypePhenotypeGraph)
-#     # Test elements align
-#     np.testing.assert_array_equal(gpgraph_test.nodes, read_gpm.nodes)
+def test_read_csv(gpgraph_test):
+    """Test reading from json"""
+    read_gpm = GenotypePhenotypeGraph.read_csv("data/test_data.csv", wildtype='AAA')
+    # Test instance was created
+    assert isinstance(read_gpm, GenotypePhenotypeGraph)
+    # Test elements align
+    np.testing.assert_array_equal(gpgraph_test.nodes, read_gpm.nodes)

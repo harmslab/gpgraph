@@ -1,6 +1,7 @@
 __doc__ = """
 Compute the positions of nodes in a flattened genotype-phenotype map.
 """
+
 import numpy as np
 
 
@@ -35,19 +36,17 @@ def flattened(G, scale=1, vertical=False):
         positions[n] = [level]
     # Center the offsets on 0
     for key, val in offsets.items():
-        offsets[key] = list(np.arange(val) - (val-1)/2.0)
+        offsets[key] = list(np.arange(val) - (val - 1) / 2.0)
     # Offset positions
     if vertical:
         for n in range(len(list(G.nodes()))):
-
             pos = offsets[positions[n][0]].pop(0)
-            scaled = scale*pos
+            scaled = scale * pos
             positions[n].insert(0, scaled)
             positions[n][-1] *= -1
     else:
         for n in range(len(list(G.nodes()))):
-
             pos = offsets[positions[n][0]].pop(0)
-            scaled = scale*pos
+            scaled = scale * pos
             positions[n].append(scaled)
     return positions

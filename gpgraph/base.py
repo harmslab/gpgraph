@@ -1,8 +1,8 @@
-import numpy as np
-import networkx as nx
-from .pyplot import draw_gpgraph
-from .models import strong_selection_weak_mutation
+from networkx import DiGraph
 from gpmap import GenotypePhenotypeMap
+from .models import strong_selection_weak_mutation
+from .pyplot import draw_gpgraph
+
 
 def get_neighbors(genotype, mutations):
     """Return all genotypes
@@ -37,10 +37,12 @@ def get_neighbors(genotype, mutations):
     return neighbors
 
 
-class GenotypePhenotypeGraph(nx.DiGraph):
+class GenotypePhenotypeGraph(DiGraph):
     """Construct a NetworkX DiGraph object from a GenotypePhenotypeMap."""
     def __init__(self, gpm, *args, **kwargs):
         super(GenotypePhenotypeGraph, self).__init__(*args, **kwargs)
+        self.gpm = gpm
+        self.model = staticmethod(model)
         self.add_gpm(gpm)
 
     def __repr__(self):
@@ -50,7 +52,6 @@ class GenotypePhenotypeGraph(nx.DiGraph):
     def add_gpm(self, gpm):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
         # Add gpm
-        self.gpm = gpm
         data = self.gpm.data
 
         # genotypes to index.
@@ -77,7 +78,6 @@ class GenotypePhenotypeGraph(nx.DiGraph):
     def add_model(self, model=strong_selection_weak_mutation, **params):
         """Add a transition model to the edges."""
         # Add model to class.
-        self.model = staticmethod(model)
 
         for edge in self.edges():
             node1 = edge[0]
@@ -97,7 +97,7 @@ class GenotypePhenotypeGraph(nx.DiGraph):
     @classmethod
     def read_csv(cls, fname, wildtype, mutations=None):
         """Read graph from csv file."""
-        gpm = GenotypePhenotypeMap.read_json(
+        gpm = GenotypePhenotypeMap.read_csv(
             fname,
             wildtype=wildtype,
             mutations=mutations

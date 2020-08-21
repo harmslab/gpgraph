@@ -59,20 +59,19 @@ Draw paths in GenotypePhenotypeGraph
 
 
 def draw_edges(
-    G,
-    pos,
-    ax=None,
-    edge_list=None,
-    widths=1.0,
-    scalar=1.0,
-    colors="black",
-    style="solid",
-    alpha=1.0,
-    arrows=False,
-    arrowstyles="-|>",
-    arrowsize=10
-    ):
-
+        G,
+        pos,
+        ax=None,
+        edge_list=None,
+        widths=1.0,
+        scalar=1.0,
+        colors="black",
+        style="solid",
+        alpha=1.0,
+        arrows=False,
+        arrowstyles="-|>",
+        arrowsize=10
+):
     # Get Figure.
     if ax is None:
         fig, ax = plt.subplots()

@@ -1,4 +1,7 @@
-numpy
-matplotlib
-networkx
-gpmap
+numpy~=1.19.1
+matplotlib~=3.3.1
+networkx~=2.4
+gpmap>=0.7.0
+pytest~=6.0.1
+gpgraph>=0.2.0
+setuptools>=49.2.0

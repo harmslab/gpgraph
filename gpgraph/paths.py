@@ -99,7 +99,7 @@ def paths_prob_to_edges_flux(paths_prob):
 
     Parameters
     ----------
-    paths: list of tuples
+    paths_prob: list of tuples
         list of the paths.
 
     Returns

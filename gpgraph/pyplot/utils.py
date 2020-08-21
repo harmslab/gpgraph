@@ -30,14 +30,14 @@ def bins(G):
     G : GenotypePhenotypeGraph object.
         A GenotypePhenotypeGraph object.
     """
-    bins = {}
+    temp_bins = {}
     for i in range(0, len(G.nodes("binary")[0]) + 1):
-        bins[i] = []
+        temp_bins[i] = []
 
     for node in range(len(list(G.nodes()))):
         node_attr = G.node[node]
         # Calculate the level of each node
         level = node_attr["binary"].count("1")
-        bins[level].append(node)
+        temp_bins[level].append(node)
 
-    return bins
+    return temp_bins

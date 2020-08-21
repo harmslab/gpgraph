@@ -4,13 +4,11 @@
 # Note: To use the 'upload' functionality of this file, you must:
 #   $ pip install twine
 
-import io
 import os
 import sys
 from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
-
 
 # Package meta-data.
 NAME = 'gpgraph'
@@ -83,7 +81,7 @@ setup(
     version=about['__version__'],
     description=DESCRIPTION,
     long_description=long_description,
-	long_description_content_type="text/markdown",
+    long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,

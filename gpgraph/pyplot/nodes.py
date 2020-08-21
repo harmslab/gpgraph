@@ -3,25 +3,26 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from .utils import despine, truncate_colormap
 
+
 def draw_nodes(
-    G,
-    pos,
-    ax=None,
-    node_list=None,
-    size=300,
-    color='r',
-    shape='o',
-    alpha=1.0,
-    linewidths=0,
-    edgecolors="black",
-    cmap='plasma',
-    cmap_truncate=False,
-    cmap_max=0.95,
-    cmap_min=0.05,
-    colorbar=False,
-    vmin=None,
-    vmax=None,
-    ):
+        G,
+        pos,
+        ax=None,
+        node_list=None,
+        size=300,
+        color='r',
+        shape='o',
+        alpha=1.0,
+        linewidths=0,
+        edgecolors="black",
+        cmap='plasma',
+        cmap_truncate=False,
+        cmap_max=0.95,
+        cmap_min=0.05,
+        colorbar=False,
+        vmin=None,
+        vmax=None,
+):
     """Draw paths in GenotypePhenotypeGraph
 
     Parameters
