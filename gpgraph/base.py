@@ -42,8 +42,6 @@ class GenotypePhenotypeGraph(DiGraph):
     def __init__(self, gpm, *args, **kwargs):
         super(GenotypePhenotypeGraph, self).__init__(*args, **kwargs)
         self.gpm = gpm
-        self.model = staticmethod(model)
-        self.add_gpm(gpm)
 
     def __repr__(self):
         draw_gpgraph(self)
@@ -52,6 +50,7 @@ class GenotypePhenotypeGraph(DiGraph):
     def add_gpm(self, gpm):
         """Attach a Network DiGraph to GenotypePhenotypeMap object."""
         # Add gpm
+        self.add_gpm(gpm)
         data = self.gpm.data
 
         # genotypes to index.
@@ -78,6 +77,8 @@ class GenotypePhenotypeGraph(DiGraph):
     def add_model(self, model=strong_selection_weak_mutation, **params):
         """Add a transition model to the edges."""
         # Add model to class.
+        self.model = staticmethod(model)
+
 
         for edge in self.edges():
             node1 = edge[0]

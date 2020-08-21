@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/gpgraph.svg)](https://badge.fury.io/py/gpgraph)
 [![nbviewer](https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/harmslab/gpgraph/blob/master/examples/Introduction_to_gpgraph.ipynb)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/harmslab/gpvolve.git/master?filepath=examples%2FIntroduction%20to%20gpvolve.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/harmslab/gpgraph/master?filepath=examples%2FIntroduction_to_gpgraph.ipynb)
 
 **Genotype-phenotype maps in NetworkX**
 

@@ -2,6 +2,7 @@ import pytest
 from gpmap.gpm import GenotypePhenotypeMap
 from gpgraph.base import get_neighbors, GenotypePhenotypeGraph
 import numpy as np
+import time
 
 
 @pytest.fixture
@@ -73,9 +74,20 @@ def test_read_json(gpgraph_test):
 
 
 def test_read_csv(gpgraph_test):
-    """Test reading from json"""
-    read_gpm = GenotypePhenotypeGraph.read_csv("data/test_data.csv", wildtype='AAA')
+    """Test reading from csv"""
+    read_gpm = GenotypePhenotypeGraph.read_csv("data/test_data_external.csv", wildtype='RDDWKAQ')
     # Test instance was created
     assert isinstance(read_gpm, GenotypePhenotypeGraph)
+
+
+def test_data_integrity_csv(gpmap_base):
+    # Export gpmap_base to csv, give it time to generate file, and then check integrity
+    # of the data read by "read_csv". This is necessary because phenotypes are randomly generated.
+    gpmap_base.to_csv(filename="data/test_data.csv")
+    time.sleep(1)
+    read_gpgraph = GenotypePhenotypeMap.read_csv(fname="data/test_data.csv", wildtype='AAA')
     # Test elements align
-    np.testing.assert_array_equal(gpgraph_test.nodes, read_gpm.nodes)
+    np.testing.assert_array_equal(gpmap_base.genotypes, read_gpgraph.genotypes)
+    np.testing.assert_array_equal(gpmap_base.phenotypes, read_gpgraph.phenotypes)
+    np.testing.assert_array_equal(gpmap_base.mutations, read_gpgraph.mutations)
+    np.testing.assert_array_equal(gpmap_base.binary, read_gpgraph.binary)
